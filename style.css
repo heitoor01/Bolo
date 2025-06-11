@@ -60,6 +60,7 @@ main {
 }
 h1 {
     font-family:'Hepta Slab', Helvetica, Arial;
+    text-align: center;
 }
 .cake-area {
     display:grid;
@@ -250,8 +251,15 @@ h1 {
     background-color:#e9c46a;
 }
 .cakeInfo--cancelButton {
+    background-color: #999;
+    padding: 15px 30px;
+    border-radius: 20px;
     display:inline-block;
     cursor:pointer;
+}
+
+.cakeInfo--cancelButton:hover {
+    background-color: #CCC;
 }
 .cakeInfo--cancelMobileButton {
     display:none;

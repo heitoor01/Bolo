@@ -8,7 +8,6 @@ cakeJson.map((item,index) => {
     let cakeItem = s('.models .cake-item').cloneNode(true);
 
     // Vamos setar um atributo e chamá-lo de "data-key", então vamos inserir no index a chave do bolo específico
-
     cakeItem.setAttribute('data-key',index)
 
 
@@ -20,7 +19,6 @@ cakeJson.map((item,index) => {
     cakeItem.querySelector('.cake-item--img img').src = item.img // Para adicionar a imagem, eu peguei a tag que tava dentro da div e inseri no atributo src
 
     // Vamos adicionar a tag <a> e colocar um evento de clique nela
-
     cakeItem.querySelector('a').addEventListener('click',(e) =>{
         e.preventDefault()
 
@@ -30,6 +28,21 @@ cakeJson.map((item,index) => {
         s('.cakeInfo--desc').innerHTML = cakeJson[key].description
         s('.cakeBig img').src = cakeJson[key].img
         s('.cakeInfo--actualPrice').innerHTML = `R$ ${cakeJson[key].price.toFixed(2)}`
+
+        // Removendo a seleção de um botão
+        s('.cakeInfo--size.selected').classList.remove('selected')
+
+        // Colocando a seleção no botões
+        sa('.cakeInfo--size').forEach((size,sizeIndex)=>{
+            // Verificar o sizeIdex do bolo grande
+            if(sizeIndex == 2){
+                size.classList.add('selected')
+            } 
+            
+            // Acessando o tamanho dos bolos
+            size.querySelector('span').innerHTML = cakeJson[key].sizes[sizeIndex]
+        })
+
         sa('.cakeInfo--size').forEach((size,sizeIndex) => {
             // Vamos entrar em cakeInfo--size, dentro dele temos uma tag <span>, então após selecionar o cakeInfo--size, vamos pegar o <span> e preencher com alguma informação
             size.querySelector('span').innerHTML = cakeJson[key].sizes[sizeIndex]
@@ -48,5 +61,21 @@ cakeJson.map((item,index) => {
     
 })
 
+sa('.cakeInfo--size').forEach((size) => {
+    size.addEventListener('click',() => {
+        s('.cakeInfo--size.selected').classList.remove('selected')
+        size.classList.add('selected')
+    })
+})
 
+function closeModal(){
+    s('.cakeWindowArea').style.opacity = 0 // Fica invisível
+    setTimeout(() => {
+        s('.cakeWindowArea').style.display = 'none' // Fecha o modal
+    },30)
+}
+
+sa('.cakeInfo--cancelButton, .cakeInfo--cancelMobileButton').forEach((item) =>{
+        item.addEventListener('click',closeModal)
+    })
 
